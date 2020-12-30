@@ -1,0 +1,66 @@
+const p1Button= document.querySelector('#p1button');
+const p2Button= document.querySelector('#p2button');
+const p2Display =document.querySelector('#p2score');
+const p1Display =document.querySelector('#p1score');
+const bg=document.querySelector('#serve');
+let p1Score = 0;
+let p2Score = 0;
+let winningscore=3;
+let gameover =false;
+const resetButton = document.querySelector('#reset');
+const winningScoreSelect = document.querySelector('#playto');
+p1Button.addEventListener('click',function(){
+    if(!gameover)
+    {
+        p1Score+=1;
+        if(p1Score===winningscore)
+        {
+            gameover=true;
+            p1Display.classList.add('has-text-success');
+            p2Display.classList.add('has-text-danger');
+            bg.textContent = "click reset";
+            p1Button.disabled = true;
+            p2Button.disabled = true;
+        }
+        else
+        bg.textContent = "player 1 serves";
+    }
+    p1Display.textContent = p1Score ;
+    
+})
+p2Button.addEventListener('click',function(){
+    if(!gameover)
+    {
+        p2Score+=1;
+        if(p2Score===winningscore)
+        {
+            gameover=true;
+            p2Display.classList.add('has-text-success');
+            p1Display.classList.add('has-text-danger');
+            bg.textContent = "click reset";
+            p1Button.disabled = true;
+            p2Button.disabled = true;
+        }
+        else
+        bg.textContent = "player 2 serves";
+    }
+    p2Display.textContent = p2Score;
+    
+})
+winningScoreSelect.addEventListener('change',function(){
+    winningscore=parseInt(this.value);
+    reset();
+})
+resetButton.addEventListener('click',reset)
+function reset()
+{
+    gameover=false;
+    p1Score=0;
+    p2Score=0;
+    p1Display.textContent=0;
+    p2Display.textContent=0;
+    p1Display.classList.remove('has-text-success','has-text-danger');
+    p2Display.classList.remove('has-text-success','has-text-danger');
+    p1Button.disabled = false;
+    p2Button.disabled = false;
+}
